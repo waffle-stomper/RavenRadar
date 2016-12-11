@@ -1,0 +1,35 @@
+{
+  "homepage": "https://github.com/waffle-stomper/RavenRadar/releases",
+  "promos":{
+    "1.11-recommended": "1.0.3",
+    "1.10-recommended": "0.3.5"
+  },
+  "1.11":{
+    "1.0.3": "* Update to 1.11\n* Temporarily disabled web waypoint functionality"
+  },
+  "1.10":{
+    "0.3.6": "Fixed a small bug where the 'waypoint options' button did nothing",
+    "0.3.5": "Changed integer locations to floats so icons move smoothly",
+    "0.3.4": "Added icon spacing setting. This should spread the icons out to cover the entire radar, but you can also cluster them near the center if you like",
+    "0.3.3": "Reverted icon stacking experiment (separating icon types into lists and rendering each list one at a time)",
+    "0.3.2": "Added icon scale slider, and fixed radar scale bug where the radar would extend off screen if the scale was > 1",
+    "0.3.1": "Fixed civradar bug where the first element in the entity icon list couldn't be modified",
+    "0.3.0": "Moved player heads to the top of the stack (visually). Still working on getting names as high (or dropping items lower than the names)",
+    "0.2.8": "Changed web waypoint logic - now the web waypoints simply overwrite the old waypoints",
+    "0.2.6": "Fixed a bug where multiple copies of the same waypoints were loaded when refreshing",
+    "0.2.5": "Increased waypoint opacity to 100% by default",
+    "0.2.4": "Added optional Y, and RGB fields to the spreadsheet. RGB will be random if not initialized",
+    "0.2.3": "Fixed an issue where the web waypoints wouldn't be inserted if the waypoint file didn't exist previously",
+    "0.1.9": "Changed waypoint text scaling to linear (it used to cap after 10m)",
+    "0.1.8": "* Fixed bug where waypoint opacity would always be set to radar opacity, ignoring config value",
+    "0.1.7": "* Removed world check, since waypoints weren't rendering in Civcraft. Re-enable later",
+    "0.1.6": "* Moved triangle below items/players. Working on moving players above items",
+    "0.1.5": "* Fix CivRadar player name position bug (name would move relative to player icon when rotating)",
+    "0.1.4": "* Fix CivRadar save bug in reposition menu (saving config several times each second)",
+    "0.1.3": "* Improved radar positioning when on the left by changing the alignment behavior",
+    "0.1.2": "* Removed ping ring",
+    "0.1.1": "* Started work on web waypoint fetching",
+    "0.1.0": "* Improved witch icon",
+    "0.0.1": "* Initial clean-up (mostly removing 'dubstep mode')"
+  }
+}
