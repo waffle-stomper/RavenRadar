@@ -49,15 +49,20 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityMule;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.EntityZombieHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -102,6 +107,7 @@ public class Config {
 			new Entity(EntityChicken.class),
 			new Entity(EntityCow.class),
 			new Entity(EntityCreeper.class),
+			new Entity(EntityDonkey.class),
 			new Entity(EntityElderGuardian.class),
 			new Entity(EntityEnderman.class),
 			new Entity(EntityEndermite.class),
@@ -113,9 +119,11 @@ public class Config {
 			new Entity(EntityHusk.class),
 			new Entity(EntityIronGolem.class),
 			new Entity(EntityItem.class),
+			new Entity(EntityLlama.class),
 			new Entity(EntityMagmaCube.class),
 			new Entity(EntityMinecart.class),
 			new Entity(EntityMooshroom.class),
+			new Entity(EntityMule.class),
 			new Entity(EntityOcelot.class),
 			new Entity(EntityPig.class),
 			new Entity(EntityPigZombie.class),
@@ -126,6 +134,7 @@ public class Config {
 			new Entity(EntityShulker.class),
 			new Entity(EntitySilverfish.class),
 			new Entity(EntitySkeleton.class),
+			new Entity(EntitySkeletonHorse.class),
 			new Entity(EntitySlime.class),
 			new Entity(EntitySnowman.class),
 			new Entity(EntitySpider.class),
@@ -137,7 +146,8 @@ public class Config {
 			new Entity(EntityWitch.class),
 			new Entity(EntityWitherSkeleton.class),
 			new Entity(EntityWolf.class),
-			new Entity(EntityZombie.class)
+			new Entity(EntityZombie.class),
+			new Entity(EntityZombieHorse.class)
 		}));
 	}
 	
