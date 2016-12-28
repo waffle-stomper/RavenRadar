@@ -75,9 +75,9 @@ public class RenderHandler extends Gui {
 	
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
-		if(event.phase == TickEvent.Phase.START && mc.theWorld != null) {
+		if(event.phase == TickEvent.Phase.START && mc.world != null) {
 			// Make sound when new players come into range
-			entityList = mc.theWorld.loadedEntityList;
+			entityList = mc.world.loadedEntityList;
 			ArrayList<String> newInRangePlayers = new ArrayList();
 			for(Object o : entityList) {
 				if(o instanceof EntityOtherPlayerMP) {
@@ -87,7 +87,7 @@ public class RenderHandler extends Gui {
 			ArrayList<String> temp = (ArrayList)newInRangePlayers.clone();
 			newInRangePlayers.removeAll(inRangePlayers);
 			for(String name : newInRangePlayers) {
-				mc.thePlayer.playSound(new SoundEvent(new ResourceLocation("block.note.pling")), config.getPingVolume(), 1.0F);
+				mc.player.playSound(new SoundEvent(new ResourceLocation("block.note.pling")), config.getPingVolume(), 1.0F);
 			}
 			inRangePlayers = temp;
 		}
@@ -102,7 +102,7 @@ public class RenderHandler extends Gui {
 		if (RavenRadar.instance.isDevEnv() || this.currentWorld.equals("44f4b133-a646-461a-a14a-5fd8c8dbc59c")){
 			if(config.shouldRenderWaypoints()) {
 				for(Waypoint point : RavenRadar.instance.getWaypointSave().getWaypoints()) {
-					if(point.getDimension() == mc.theWorld.provider.getDimension() && point.isEnabled()) {
+					if(point.getDimension() == mc.world.provider.getDimension() && point.isEnabled()) {
 						renderWaypoint(point, event);
 					}
 				}
@@ -135,13 +135,13 @@ public class RenderHandler extends Gui {
 		GL11.glTranslated(xOffset, yOffset, 0.0F);
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
 		if(config.shouldRenderCoordinates()) {
-			String coords = "(" + (int) mc.thePlayer.posX + "," + (int) mc.thePlayer.posY + "," + (int) mc.thePlayer.posZ + ")";
+			String coords = "(" + (int) mc.player.posX + "," + (int) mc.player.posY + "," + (int) mc.player.posZ + ")";
 			//TODO: Figure out why the colors are flipped here: It seems to happen when there isn't a player/item in view
 			//Co-ordinates are disabled until I figure this out
 			//mc.fontRendererObj.drawString(coords, -(mc.fontRendererObj.getStringWidth(coords) / 2), (int) ((radarMaxRadius+2) * radarScale), 0);
 		}
 		GL11.glScalef(this.radarScale, this.radarScale, this.radarScale);
-		GL11.glRotatef(-mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(-mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		drawCircle(0, 0, radarMaxRadius, radarColor, true); //fill
 		GL11.glLineWidth(2.0F);
 		drawCircle(0, 0, radarMaxRadius, radarColor, false); //border
@@ -161,9 +161,9 @@ public class RenderHandler extends Gui {
 		GL11.glVertex2d(-radarDiagSectorCoOrd, radarDiagSectorCoOrd);
 		GL11.glVertex2d(radarDiagSectorCoOrd, -radarDiagSectorCoOrd);
 		GL11.glEnd();
-		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		drawTriangle(0, 0, Color.WHITE);
-		GL11.glRotatef(-mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(-mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
@@ -213,11 +213,11 @@ public class RenderHandler extends Gui {
 		if(entityList == null) {
 			return;
 		}
-		float playerPosX = (float)mc.thePlayer.posX;
-		float playerPosZ = (float)mc.thePlayer.posZ;
+		float playerPosX = (float)mc.player.posX;
+		float playerPosZ = (float)mc.player.posZ;
 		for(Object o : entityList) {
 			Entity e = (Entity) o;
-			if(e != mc.thePlayer) {
+			if(e != mc.player) {
 				int entityPosX = (int) e.posX;
 				int entityPosZ = (int) e.posZ;
 				float displayPosX = (playerPosX-entityPosX) * this.iconSpacing;
@@ -250,7 +250,7 @@ public class RenderHandler extends Gui {
 		GL11.glTranslatef(x +1, y +1, 0.0F);
 		GL11.glScalef(this.iconScale, this.iconScale, this.iconScale);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
-		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		RenderHelper.enableGUIStandardItemLighting(); // <-------------------------------AWW
 		mc.getRenderItem().renderItemAndEffectIntoGUI(item, -8, -8);
 		RenderHelper.disableStandardItemLighting(); //   <-------------------------------YISS
@@ -289,9 +289,9 @@ public class RenderHandler extends Gui {
 		GL11.glPushMatrix();
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glTranslatef(x + 1, y + 1, 0.0F);
-		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		GL11.glScalef(this.iconScale, this.iconScale, this.iconScale);
-		mc.getTextureManager().bindTexture(new ResourceLocation("RavenRadar/icons/player.png"));
+		mc.getTextureManager().bindTexture(new ResourceLocation("ravenradar", "icons/player.png"));
 		drawModalRectWithCustomSizedTexture(-8, -8, 0, 0, 16, 16, 16, 16, 1000d);
 		GL11.glScalef(1/this.iconScale, 1/this.iconScale, 1/this.iconScale);
 		GL11.glTranslatef(-x -1, -y -1, 0.0F);
@@ -305,11 +305,11 @@ public class RenderHandler extends Gui {
 		GL11.glPushMatrix();
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glTranslatef(x, y, 0.0F);
-		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		GL11.glTranslatef(-x, -y, 0.0F);
 		String playerName = player.getName();
 		if(config.showExtraPlayerInfo()) {
-			playerName += " (" + (int) mc.thePlayer.getDistanceToEntity(player) + "m)(Y" + (int) player.posY + ")";
+			playerName += " (" + (int) mc.player.getDistanceToEntity(player) + "m)(Y" + (int) player.posY + ")";
 		}
 		
 		int yOffset = config.getNameLocation() == NameLocation.below ? 10 : -10;
@@ -326,7 +326,7 @@ public class RenderHandler extends Gui {
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glTranslatef(x + 1, y + 1, 0.0F);
 		GL11.glScalef(this.iconScale, this.iconScale, this.iconScale);
-		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		GL11.glRotatef(mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
 		drawModalRectWithCustomSizedTexture(-8, -8, 0, 0, 16, 16, 16, 16, 0);
 		GL11.glScalef(1/this.iconScale, 1/this.iconScale, 1/this.iconScale);
 		GL11.glTranslatef(-x -1, -y -1, 0.0F);
@@ -351,9 +351,9 @@ public class RenderHandler extends Gui {
 			VertexBuffer vb = tess.getBuffer();
 			RenderManager rm = mc.getRenderManager();
 			
-			float playerX = (float) (mc.thePlayer.lastTickPosX + (mc.thePlayer.posX - mc.thePlayer.lastTickPosX) * partialTickTime);
-			float playerY = (float) (mc.thePlayer.lastTickPosY + (mc.thePlayer.posY - mc.thePlayer.lastTickPosY) * partialTickTime);
-			float playerZ = (float) (mc.thePlayer.lastTickPosZ + (mc.thePlayer.posZ - mc.thePlayer.lastTickPosZ) * partialTickTime);
+			float playerX = (float) (mc.player.lastTickPosX + (mc.player.posX - mc.player.lastTickPosX) * partialTickTime);
+			float playerY = (float) (mc.player.lastTickPosY + (mc.player.posY - mc.player.lastTickPosY) * partialTickTime);
+			float playerZ = (float) (mc.player.lastTickPosZ + (mc.player.posZ - mc.player.lastTickPosZ) * partialTickTime);
 			
 			float displayX = (float)point.getX() - playerX;
 			float displayY = (float)point.getY() + 1.3f - playerY;

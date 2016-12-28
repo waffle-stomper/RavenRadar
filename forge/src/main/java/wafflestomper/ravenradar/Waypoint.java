@@ -23,8 +23,8 @@ public class Waypoint {
 		this.red = _c.getRed() / 255.0F;
 		this.green = _c.getGreen() / 255.0F;
 		this.blue = _c.getBlue() / 255.0F;
-		if (Minecraft.getMinecraft().theWorld != null)
-			this.dimension = Minecraft.getMinecraft().theWorld.provider.getDimension();
+		if (Minecraft.getMinecraft().world != null)
+			this.dimension = Minecraft.getMinecraft().world.provider.getDimension();
 		this.enabled = _enabled;
 	}
 	
@@ -111,10 +111,10 @@ public class Waypoint {
 	}
 	
 	public double getDistance(Minecraft mc) {
-		double d3 = x - mc.thePlayer.posX;
-        double d4 = y - mc.thePlayer.posY;
-        double d5 = z - mc.thePlayer.posZ;
-        return (double)MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
+		double d3 = x - mc.player.posX;
+        double d4 = y - mc.player.posY;
+        double d5 = z - mc.player.posZ;
+        return (double)MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
 	}
 	
 	public boolean equals(Waypoint p) {
