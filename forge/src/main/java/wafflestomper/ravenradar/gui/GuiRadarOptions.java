@@ -138,7 +138,7 @@ public class GuiRadarOptions extends GuiScreen {
 	
 	public void drawScreen(int i, int j, float k) {
 		drawDefaultBackground();
-		drawCenteredString(this.fontRendererObj, "RavenRadar Options", this.width / 2, this.height / 4 - 50, Color.WHITE.getRGB());
+		drawCenteredString(this.fontRenderer, "RavenRadar Options", this.width / 2, this.height / 4 - 50, Color.WHITE.getRGB());
 		super.drawScreen(i, j, k);
 	}
 }

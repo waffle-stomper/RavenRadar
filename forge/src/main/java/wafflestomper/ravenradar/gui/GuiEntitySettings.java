@@ -76,7 +76,7 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.entityListContainer.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, "Edit enabled entities", this.width / 2, 20, 16777215);
+        this.drawCenteredString(this.fontRenderer, "Edit enabled entities", this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 	
@@ -109,10 +109,10 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 			GuiEntitySettings.this.drawDefaultBackground();
 		}
 		
-		protected void drawSlot(int entryId, int par2, int par3, int par4, int par5, int par6) {
+		protected void drawSlot(int entryId, int par2, int par3, int par4, int par5, int par6, float unused) {
 			Entity entity = GuiEntitySettings.this.entityList.get(entryId);
-			GuiEntitySettings.this.drawString(mc.fontRendererObj, entity.getEntityName(), par2 + 1, par3 + 1, Color.WHITE.getRGB());
-			GuiEntitySettings.this.drawString(mc.fontRendererObj, entity.isEnabled() ? "Enabled" : "Disabled", par2 + 215 - mc.fontRendererObj.getStringWidth("Disabled"), par3 + 1, entity.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
+			GuiEntitySettings.this.drawString(mc.fontRenderer, entity.getEntityName(), par2 + 1, par3 + 1, Color.WHITE.getRGB());
+			GuiEntitySettings.this.drawString(mc.fontRenderer, entity.isEnabled() ? "Enabled" : "Disabled", par2 + 215 - mc.fontRenderer.getStringWidth("Disabled"), par3 + 1, entity.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
 		}
 	}
 }

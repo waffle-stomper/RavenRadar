@@ -3,27 +3,21 @@ package wafflestomper.ravenradar;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-import wafflestomper.ravenradar.Config.NameLocation;
-import wafflestomper.wafflecore.WaffleCore;
-import wafflestomper.wafflecore.WorldInfoEvent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.Sound;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -31,13 +25,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import wafflestomper.ravenradar.Config.NameLocation;
+import wafflestomper.wafflecore.WorldInfoEvent;
 
 public class RenderHandler extends Gui {
 
@@ -223,7 +218,7 @@ public class RenderHandler extends Gui {
 				float displayPosX = (playerPosX-entityPosX) * this.iconSpacing;
 				float displayPosZ = (playerPosZ-entityPosZ) * this.iconSpacing;
 				if(e instanceof EntityItem && config.isRender(EntityItem.class)) {
-					renderItemIcon(displayPosX, displayPosZ, ((EntityItem)e).getEntityItem());
+					renderItemIcon(displayPosX, displayPosZ, ((EntityItem)e).getItem());
 				}
 				else if(e instanceof EntityOtherPlayerMP && config.isRender(EntityPlayer.class)) {
 					try {
@@ -270,7 +265,7 @@ public class RenderHandler extends Gui {
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
         vertexbuffer.pos((double)x, (double)(y + height), zLevel)
         				.tex((double)(u * f), (double)((v + (float)height) * f1)).endVertex();
@@ -313,7 +308,7 @@ public class RenderHandler extends Gui {
 		}
 		
 		int yOffset = config.getNameLocation() == NameLocation.below ? 10 : -10;
-		drawCenteredString(mc.fontRendererObj, playerName, (int)x + 8, (int)y + yOffset, Color.WHITE.getRGB());
+		drawCenteredString(mc.fontRenderer, playerName, (int)x + 8, (int)y + yOffset, Color.WHITE.getRGB());
 		GL11.glScalef(2.0F, 2.0F, 2.0F);
 		GL11.glPopMatrix();
 	}
@@ -346,9 +341,9 @@ public class RenderHandler extends Gui {
 		double distance = point.getDistance(mc);
 		int maxView = mc.gameSettings.renderDistanceChunks * 22;
 		if(distance <= config.getMaxWaypointDistance() || config.getMaxWaypointDistance() < 0) {
-			FontRenderer fr = mc.fontRendererObj;
+			FontRenderer fr = mc.fontRenderer;
 			Tessellator tess = Tessellator.getInstance();
-			VertexBuffer vb = tess.getBuffer();
+			BufferBuilder vb = tess.getBuffer();
 			RenderManager rm = mc.getRenderManager();
 			
 			float playerX = (float) (mc.player.lastTickPosX + (mc.player.posX - mc.player.lastTickPosX) * partialTickTime);
