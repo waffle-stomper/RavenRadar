@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnection
 import wafflestomper.ravenradar.gui.GuiAddWaypoint;
 import wafflestomper.ravenradar.gui.GuiRadarOptions;
 
-@Mod(modid=RavenRadar.MODID, name=RavenRadar.MODNAME, version=RavenRadar.VERSION, dependencies = "required-after:wafflecore",
+@Mod(modid=RavenRadar.MODID, name=RavenRadar.MODNAME, version=RavenRadar.VERSION, 
      updateJSON = "https://raw.githubusercontent.com/waffle-stomper/RavenRadar/master/update.json", canBeDeactivated = true)
 public class RavenRadar {
 	
@@ -36,7 +36,7 @@ public class RavenRadar {
 	
 	public static final String MODID = "ravenradar";
 	public static final String MODNAME = "RavenRadar";
-	public static final String VERSION = "1.0.9";
+	public static final String VERSION = "1.1.0";
 	private RenderHandler renderHandler;
 	private Config radarConfig;
 	private File configFile;

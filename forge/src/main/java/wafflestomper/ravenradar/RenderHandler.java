@@ -32,7 +32,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import wafflestomper.ravenradar.Config.NameLocation;
-import wafflestomper.wafflecore.WorldInfoEvent;
 
 public class RenderHandler extends Gui {
 
@@ -44,7 +43,7 @@ public class RenderHandler extends Gui {
 	private float iconScale = 1.0f;
 	private float iconSpacing = 1.0f;
 	ArrayList<String> inRangePlayers;
-	private String currentWorld = "";
+	//private String currentWorld = "";
 	//TODO: Support much larger radars for high resolution settings (GUI scale = small)
 	private static final double radarMaxRadius = 63.0D;
 	private static final double radarDiagSectorCoOrd = Math.sin(Math.toRadians(45))*radarMaxRadius;
@@ -61,11 +60,6 @@ public class RenderHandler extends Gui {
 		if(config.isEnabled()) {
 			drawRadar();
 		}
-	}
-	
-	@SubscribeEvent
-	public void worldInfoReceived(WorldInfoEvent event){
-		this.currentWorld = event.worldID;
 	}
 	
 	@SubscribeEvent
@@ -93,13 +87,10 @@ public class RenderHandler extends Gui {
 		if(RavenRadar.instance.getWaypointSave() == null) {
 			return;
 		}
-		// Only show waypoints if you're in the correct shard
-		if (RavenRadar.instance.isDevEnv() || this.currentWorld.equals("44f4b133-a646-461a-a14a-5fd8c8dbc59c")){
-			if(config.shouldRenderWaypoints()) {
-				for(Waypoint point : RavenRadar.instance.getWaypointSave().getWaypoints()) {
-					if(point.getDimension() == mc.world.provider.getDimension() && point.isEnabled()) {
-						renderWaypoint(point, event);
-					}
+		if(config.shouldRenderWaypoints()) {
+			for(Waypoint point : RavenRadar.instance.getWaypointSave().getWaypoints()) {
+				if(point.getDimension() == mc.world.provider.getDimension() && point.isEnabled()) {
+					renderWaypoint(point, event);
 				}
 			}
 		}
