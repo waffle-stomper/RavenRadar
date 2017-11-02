@@ -6,7 +6,6 @@
   "url": "https://github.com/waffle-stomper/RavenRadar",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "authorList": ["TealNerd","waffle-stomper"],
-  "dependencies": [""]
+  "authorList": ["TealNerd","waffle-stomper"]
 }
 ]

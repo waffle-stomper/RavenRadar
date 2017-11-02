@@ -36,7 +36,7 @@ public class RavenRadar {
 	
 	public static final String MODID = "ravenradar";
 	public static final String MODNAME = "RavenRadar";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.1";
 	private RenderHandler renderHandler;
 	private Config radarConfig;
 	private File configFile;
