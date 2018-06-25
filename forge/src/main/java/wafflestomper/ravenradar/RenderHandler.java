@@ -295,7 +295,7 @@ public class RenderHandler extends Gui {
 		GL11.glTranslatef(-x, -y, 0.0F);
 		String playerName = player.getName();
 		if(config.showExtraPlayerInfo()) {
-			playerName += " (" + (int) mc.player.getDistanceToEntity(player) + "m)(Y" + (int) player.posY + ")";
+			playerName += " (" + (int) mc.player.getDistance(player) + "m)(Y" + (int) player.posY + ")";
 		}
 		
 		int yOffset = config.getNameLocation() == NameLocation.below ? 10 : -10;
