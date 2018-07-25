@@ -66,7 +66,6 @@ import net.minecraft.util.ResourceLocation;
 public class Config {
 	
 	private boolean enabled = true;
-	private ArrayList<Entity> mobs;
 	private boolean renderCoordinates = true;
 	private boolean extraPlayerInfo = true;
 	private boolean playerNames = true;
@@ -88,7 +87,8 @@ public class Config {
 	private float pingVolume = 0.5F;
 	private double defaultWebWaypointY = 1.1d;
 	private boolean webWaypointsEnabled = false;
-	private String webWaypointsURL = "";
+	private String webWaypointsSheetID = "";
+	private ArrayList<Entity> mobs;
 	
 	
 	public Config() {
@@ -151,7 +151,7 @@ public class Config {
 	
 	
 	public boolean getWebWaypointsEnabled(){
-		if (this.webWaypointsURL.isEmpty()){
+		if (this.webWaypointsSheetID.isEmpty()){
 			this.webWaypointsEnabled = false;
 		}
 		return this.webWaypointsEnabled;
@@ -163,8 +163,8 @@ public class Config {
 	}
 	
 	
-	public String getWebWaypointsURL(){
-		return this.webWaypointsURL;
+	public String getWebWaypointsSheetID(){
+		return this.webWaypointsSheetID;
 	}
 
 	

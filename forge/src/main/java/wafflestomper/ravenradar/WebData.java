@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class WebData {
 	
@@ -25,19 +26,42 @@ public class WebData {
 	private boolean disabled = false;
 	private boolean gotData = false;
 	private ArrayList<WebWaypoint> waypoints = new ArrayList<WebWaypoint>();
-	private static final double y = RavenRadar.instance.getConfig().getDefaultWebWaypointY();
+	private static final Config config = RavenRadar.instance.getConfig();
+	private static final double y = config.getDefaultWebWaypointY();
 	private static final Logger logger = LogManager.getLogger("RavenRadar:WebData");
+	
+	/*
+	 * NOTES: 
+	 * 
+	 * The spreadsheet needs the following columns:
+	 *   X, Z, Name, Y, R, G, B, Contents, Notes
+	 * 
+	 * The sheet must be 'published':
+	 *   File > Publish to the web > Publish
+	 *   
+	 * Spreadsheet ID is in the normal URL (ignore the publish link)
+	 */
 
 	public WebData(){
-		if (RavenRadar.instance.getConfig().getWebWaypointsEnabled() == false){
+		if (config.getWebWaypointsEnabled() == false){
 			this.disabled = true;
 			return;
 		}
-		try {
-			url = new URL("https://spreadsheets.google.com/feeds/list/<SHEET_ID_GOES_HERE>/od6/public/values?alt=json");
-		} catch (MalformedURLException e) {
+		else if (config.getWebWaypointsSheetID() == ""){
+			logger.error("Web waypoints sheet ID is blank! Disabling web waypoints!");
 			this.disabled = true;
-			e.printStackTrace();
+		}
+		else {
+			try {
+				//url = new URL("https://spreadsheets.google.com/feeds/list/<SHEET_ID_GOES_HERE>/od6/public/values?alt=json");
+				String sheetID = RavenRadar.instance.getConfig().getWebWaypointsSheetID();
+				url = new URL("https://spreadsheets.google.com/feeds/list/" + sheetID + "/od6/public/values?alt=json");
+				logger.warn("Successfully loaded web waypoints url!");
+			} catch (MalformedURLException e) {
+				logger.error("Couldn't form google sheets URL. Check your sheet ID!");
+				this.disabled = true;
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -107,9 +131,9 @@ public class WebData {
 	         this.disabled = true;
 	    } 
 	    catch (IOException ioe) {
-	         ioe.printStackTrace();
-	         this.disabled = true;
-	    } 
+	        ioe.printStackTrace();
+	        this.disabled = true;
+	    }
 	    finally {
 	        try {
 	            if (is != null) is.close();
@@ -118,11 +142,24 @@ public class WebData {
 	        }
 	    }
 	    
+	    if (this.disabled) {
+	    	return;
+	    }
+	    
 	    // Parse JSON into waypoints
 	    JsonArray entries = null;
 		JsonParser parser = new JsonParser();
-		JsonElement tree = parser.parse(jsonString);
-		if (!tree.isJsonNull() && tree.isJsonObject()){
+		JsonElement tree = null;
+		try {
+			tree = parser.parse(jsonString);
+		}
+	    catch (JsonSyntaxException jse) {
+	    	jse.printStackTrace();
+	    	logger.error("JSON syntax exception - make sure your spreadhseet is public! Disabling WebWaypoints...");
+	    	this.disabled = true;
+	    	return;
+	    }
+		if (tree != null && !tree.isJsonNull() && tree.isJsonObject()){
 			JsonObject base = tree.getAsJsonObject();
 			if (base.has("feed")){
 				JsonElement fe = base.get("feed");
