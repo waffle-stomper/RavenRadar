@@ -81,7 +81,7 @@ public class Config {
 	private Color radarColor = new Color(0.25F, 0.25F, 0.25F);
 	private float radarScale = 1.0F;
 	private float iconScale = 1.0F;
-	private float iconSpacing = 2.4F;
+	private float iconSpacing = 1.5F;
 	public enum NameLocation {above,below};
 	private NameLocation nameLocation = NameLocation.below;
 	private float pingVolume = 0.5F;

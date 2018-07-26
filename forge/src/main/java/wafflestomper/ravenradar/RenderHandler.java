@@ -124,7 +124,7 @@ public class RenderHandler extends Gui {
 			String coords = "(" + (int) mc.player.posX + "," + (int) mc.player.posY + "," + (int) mc.player.posZ + ")";
 			//TODO: Figure out why the colors are flipped here: It seems to happen when there isn't a player/item in view
 			//Co-ordinates are disabled until I figure this out
-			//mc.fontRendererObj.drawString(coords, -(mc.fontRendererObj.getStringWidth(coords) / 2), (int) ((radarMaxRadius+2) * radarScale), 0);
+			mc.fontRenderer.drawString(coords, -(mc.fontRenderer.getStringWidth(coords) / 2), (int) ((radarMaxRadius+2) * radarScale), 0);
 		}
 		GL11.glScalef(this.radarScale, this.radarScale, this.radarScale);
 		GL11.glRotatef(-mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);

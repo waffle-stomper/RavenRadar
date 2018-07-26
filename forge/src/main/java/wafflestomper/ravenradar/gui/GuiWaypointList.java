@@ -116,10 +116,11 @@ public class GuiWaypointList extends GuiScreen {
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
 			GuiWaypointList.this.selected = slotIndex;
 			boolean isValidSlot = slotIndex >= 0 && slotIndex < getSize();
-			GuiWaypointList.this.enableButton.enabled = isValidSlot;
-			GuiWaypointList.this.disableButton.enabled = isValidSlot;
-			GuiWaypointList.this.editButton.enabled = isValidSlot;
-			GuiWaypointList.this.deleteButton.enabled = isValidSlot;
+			// These are disabled until I write code to push the changes to the spreadsheet
+			//GuiWaypointList.this.enableButton.enabled = isValidSlot;
+			//GuiWaypointList.this.disableButton.enabled = isValidSlot;
+			//GuiWaypointList.this.editButton.enabled = isValidSlot;
+			//GuiWaypointList.this.deleteButton.enabled = isValidSlot;
 		}
 		
 		protected boolean isSelected(int slotIndex) {
