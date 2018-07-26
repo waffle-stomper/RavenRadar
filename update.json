@@ -1,7 +1,7 @@
 {
   "homepage": "https://github.com/waffle-stomper/RavenRadar/releases",
   "promos":{
-    "1.12.2-recommended": "1.1.1",
+    "1.12.2-recommended": "1.1.2",
     "1.12.1-recommended": "1.0.9",
     "1.12-recommended": "1.0.8",
     "1.11.2-recommended": "1.0.6",
@@ -9,6 +9,7 @@
     "1.10-recommended": "0.3.5"
   },
   "1.12.2":{
+    "1.1.2": "* Re-enabled web waypoints\n* Re-enabled co-ords",
     "1.1.1": "* Fixed mcmod.info bug that prevented loading",
     "1.1.0": "* Update to 1.12.2\n* Remove WaffleCore dependency"
   },
